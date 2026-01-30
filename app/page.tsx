@@ -70,7 +70,7 @@ export default function Home() {
         {/* Main Content Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: brandKit ? 'repeat(auto-fit, minmax(500px, 1fr))' : '1fr',
+          gridTemplateColumns: brandKit ? 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))' : '1fr',
           gap: 'var(--spacing-2xl)',
           maxWidth: brandKit ? '100%' : '800px',
           margin: '0 auto',

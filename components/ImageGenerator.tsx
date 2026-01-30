@@ -127,6 +127,7 @@ export default function ImageGenerator({ brandKit, onImagesChange }: ImageGenera
             {/* Input Section */}
             <div style={{
                 display: 'flex',
+                flexDirection: 'column',
                 gap: 'var(--spacing-md)',
                 marginBottom: 'var(--spacing-xl)',
             }}>

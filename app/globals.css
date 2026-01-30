@@ -11,7 +11,7 @@
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
-  
+
   /* Neutrals */
   --color-bg: #0a0a0f;
   --color-bg-secondary: #13131a;
@@ -22,12 +22,12 @@
   --color-text: #e5e7eb;
   --color-text-secondary: #9ca3af;
   --color-text-muted: #6b7280;
-  
+
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
   --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   --gradient-surface: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -36,7 +36,7 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
-  
+
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-size-xs: 0.75rem;
@@ -48,7 +48,7 @@
   --font-size-3xl: 2rem;
   --font-size-4xl: 2.5rem;
   --font-size-5xl: 3rem;
-  
+
   /* Border Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -56,14 +56,14 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
   --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.4);
-  
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
@@ -87,7 +87,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
   background-attachment: fixed;
@@ -98,7 +98,12 @@ body {
 }
 
 /* ===== Typography ===== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -124,9 +129,12 @@ h3 {
 
 /* ===== Animations ===== */
 @keyframes gradient-shift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -137,6 +145,7 @@ h3 {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -148,6 +157,7 @@ h3 {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -155,9 +165,12 @@ h3 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
   }
+
   50% {
     box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
   }
@@ -201,6 +214,9 @@ h3 {
   padding: var(--spacing-2xl);
   box-shadow: var(--shadow-xl);
   transition: all var(--transition-base);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .glass-card:hover {
@@ -387,19 +403,49 @@ h3 {
   background-clip: text;
 }
 
-.mt-1 { margin-top: var(--spacing-md); }
-.mt-2 { margin-top: var(--spacing-lg); }
-.mt-3 { margin-top: var(--spacing-xl); }
-.mt-4 { margin-top: var(--spacing-2xl); }
+.mt-1 {
+  margin-top: var(--spacing-md);
+}
 
-.mb-1 { margin-bottom: var(--spacing-md); }
-.mb-2 { margin-bottom: var(--spacing-lg); }
-.mb-3 { margin-bottom: var(--spacing-xl); }
-.mb-4 { margin-bottom: var(--spacing-2xl); }
+.mt-2 {
+  margin-top: var(--spacing-lg);
+}
 
-.gap-1 { gap: var(--spacing-md); }
-.gap-2 { gap: var(--spacing-lg); }
-.gap-3 { gap: var(--spacing-xl); }
+.mt-3 {
+  margin-top: var(--spacing-xl);
+}
+
+.mt-4 {
+  margin-top: var(--spacing-2xl);
+}
+
+.mb-1 {
+  margin-bottom: var(--spacing-md);
+}
+
+.mb-2 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.mb-3 {
+  margin-bottom: var(--spacing-xl);
+}
+
+.mb-4 {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.gap-1 {
+  gap: var(--spacing-md);
+}
+
+.gap-2 {
+  gap: var(--spacing-lg);
+}
+
+.gap-3 {
+  gap: var(--spacing-xl);
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -407,12 +453,17 @@ h3 {
     --font-size-5xl: 2rem;
     --font-size-3xl: 1.5rem;
   }
-  
+
   .glass-card {
     padding: var(--spacing-lg);
   }
-  
+
   .main-content {
     padding: var(--spacing-xl) 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+    overflow-x: hidden;
   }
 }

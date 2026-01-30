@@ -30,7 +30,7 @@ export default function ColorPalette({ colors }: ColorPaletteProps) {
     ];
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--spacing-lg)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 100px), 1fr))', gap: 'var(--spacing-lg)' }}>
             {colorEntries.map(({ name, value }) => (
                 <div key={name} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
                     <div
