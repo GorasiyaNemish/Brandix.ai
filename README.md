@@ -1,25 +1,25 @@
 # Brandix.ai - AI-Powered Brand Kit Generator
 
-Generate complete brand identities instantly using AI. Get brand names, taglines, color palettes, mission statements, and logos—all in structured JSON format ready for PostgreSQL JSONB storage.
+Generate complete brand identities instantly using AI. Get brand names, taglines, color palettes, mission statements logo and brand images.
+
+Try it out [here](https://brandix-ai-tau.vercel.app/)
 
 ## 🚀 Features
 
-- **AI-Powered Generation**: Uses Llama 3.1 (70B) via Groq Cloud for ultra-fast brand creation
+- **AI-Powered Generation**: Uses Llama 3.3 (70B) via Groq Cloud for ultra-fast brand creation
 - **Complete Brand Kits**: Brand name, tagline, mission, personality keywords, color palette, and logo
 - **Free Image Generation**: Pollinations.ai integration (no API key needed)
-- **JSON Export**: Structured output compatible with PostgreSQL JSONB columns
 - **Modern UI**: Glassmorphism design with smooth animations
 - **Instant Preview**: See your brand come to life in real-time
-- **Copy & Download**: Easy export of JSON data and logo images
+- **Copy & Download**: Easy export of logo and brand kit images
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14 (App Router) with TypeScript
+- **Frontend**: Next.js 16 (App Router) with TypeScript
 - **Styling**: Vanilla CSS with modern design system
-- **AI Text**: Groq Cloud (Llama 3.1-70B) - Free tier available
+- **AI Text**: Groq Cloud (Llama 3.3-70B) - Free tier available
 - **AI Images**: Pollinations.ai - Completely free, no API key
 - **Validation**: Zod for schema validation
-- **Database**: PostgreSQL-ready JSON output (optional)
 
 ## 📋 Prerequisites
 
@@ -68,51 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 1. **Enter Business Description**: Describe your business idea in 10-1000 characters
 2. **Generate**: Click "Generate Brand Kit" and wait 3-5 seconds
 3. **Preview**: Review your complete brand identity
-4. **Export**: Copy JSON or download as a file
-5. **Save**: Store in PostgreSQL JSONB column or use directly
-
-## 📊 JSON Schema
-
-The generated brand kit follows this structure:
-
-```json
-{
-  "brandName": "string",
-  "tagline": "string",
-  "mission": "string",
-  "personality": ["keyword1", "keyword2", "keyword3"],
-  "colorPalette": {
-    "primary": "#hexcode",
-    "secondary": "#hexcode",
-    "accent": "#hexcode"
-  },
-  "logoPrompt": "detailed prompt for image generation",
-  "logoUrl": "https://image.pollinations.ai/...",
-  "createdAt": "ISO timestamp"
-}
-```
-
-## 🗄️ PostgreSQL Integration
-
-Store brand kits in PostgreSQL using JSONB:
-
-```sql
-CREATE TABLE brand_kits (
-  id SERIAL PRIMARY KEY,
-  business_description TEXT NOT NULL,
-  brand_data JSONB NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Insert example
-INSERT INTO brand_kits (business_description, brand_data)
-VALUES ('A sustainable coffee shop', '{"brandName": "..."}');
-
--- Query example
-SELECT brand_data->>'brandName' as name,
-       brand_data->'colorPalette'->>'primary' as primary_color
-FROM brand_kits;
-```
+4. **Export**: Download ZIP file
 
 ## 🎨 Customization
 
@@ -123,10 +79,6 @@ Edit `lib/groq.ts` to customize the brand generation prompt and adjust creativit
 ### Change Design Theme
 
 Edit `app/globals.css` to modify colors, fonts, spacing, and animations.
-
-### Add Database Storage
-
-Uncomment database code in `lib/db.ts` and add your PostgreSQL connection string to `.env.local`.
 
 ## 🔧 Available Scripts
 
@@ -176,7 +128,7 @@ npm start
 
 ## 📝 License
 
-MIT License - feel free to use for personal or commercial projects.
+MIT License - feel free to use for personal or commercial projects. Don't forget to credit Brandix.ai 😜.
 
 ## 🤝 Contributing
 
@@ -190,4 +142,4 @@ Contributions welcome! Feel free to open issues or submit PRs.
 
 ---
 
-Built with ❤️ using Next.js, Llama 3, and Pollinations.ai
+Built with ❤️ By Nemish Gorasiya
