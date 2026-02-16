@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import type { BrandKit } from '@/lib/types';
+import { generateLogoUrl } from '@/lib/pollinations';
 
 interface ImageGeneratorProps {
     brandKit: BrandKit;
@@ -11,7 +12,8 @@ interface ImageGeneratorProps {
 interface GeneratedImage {
     id: string;
     url: string;
-    prompt: string;
+    prompt: string; // User's custom prompt (for display)
+    fullPrompt: string; // Full prompt with brand context (for retry)
     isLoading?: boolean;
     hasError?: boolean;
 }
@@ -30,43 +32,72 @@ export default function ImageGenerator({ brandKit, onImagesChange }: ImageGenera
     }, [images, onImagesChange]);
 
     const generateImage = async () => {
+        console.log('🚀 Generate Image button clicked');
+        console.log('Current images count:', images.length);
+        console.log('Custom prompt:', customPrompt);
+
         if (images.length >= 3) {
+            console.warn('⚠️ Maximum images reached');
             alert('Maximum 3 images allowed');
             return;
         }
 
         if (!customPrompt.trim()) {
+            console.warn('⚠️ Empty prompt');
             alert('Please enter what kind of image you want');
             return;
         }
 
         setIsGenerating(true);
+        console.log('✅ Starting image generation...');
 
         try {
             // Combine brand context with user's custom prompt
             const fullPrompt = `${customPrompt}, brand style: ${brandKit.personality.join(', ')}, colors: ${brandKit.colorPalette.primary}, ${brandKit.colorPalette.secondary}, ${brandKit.colorPalette.accent}`;
 
-            // Generate image using Pollinations.ai
-            const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=512&height=512&nologo=true&seed=${Date.now()}`;
+            console.log('📝 Full prompt created:', fullPrompt.substring(0, 100) + '...');
 
-            console.log('Generating image with URL:', imageUrl);
-            console.log('Full prompt:', fullPrompt);
+            // Generate a valid seed (must be <= 2147483647 for Pollinations.ai API)
+            const seed = Math.floor(Date.now() % 2147483647);
+
+            // Use the same helper function as logo generation
+            // This keeps the implementation consistent and maintainable
+            const imageUrl = generateLogoUrl(fullPrompt, {
+                width: 512,
+                height: 512,
+                model: 'flux',
+                seed: seed,
+            });
+
+            console.log('🎨 Image URL generated:', imageUrl);
 
             const newImage: GeneratedImage = {
                 id: Date.now().toString(),
                 url: imageUrl,
-                prompt: customPrompt,
+                prompt: customPrompt, // For display
+                fullPrompt: fullPrompt, // For retry with brand context
                 isLoading: true,
                 hasError: false,
             };
 
+            console.log('📦 New image object created:', {
+                id: newImage.id,
+                prompt: newImage.prompt,
+                url: newImage.url,
+                isLoading: newImage.isLoading
+            });
+
             setImages([...images, newImage]);
+            console.log('✅ Image added to state, new count:', images.length + 1);
+
             setCustomPrompt('');
+            console.log('✅ Prompt cleared');
         } catch (err) {
-            console.error('Failed to generate image:', err);
+            console.error('❌ Failed to generate image:', err);
             alert('Failed to generate image. Please try again.');
         } finally {
             setIsGenerating(false);
+            console.log('✅ Generation complete, isGenerating set to false');
         }
     };
 
@@ -75,22 +106,44 @@ export default function ImageGenerator({ brandKit, onImagesChange }: ImageGenera
     };
 
     const handleImageLoad = (id: string) => {
-        console.log('Image loaded successfully:', id);
+        console.log('✅ Image loaded successfully:', id);
         setImages(images.map(img =>
             img.id === id ? { ...img, isLoading: false, hasError: false } : img
         ));
     };
 
     const handleImageError = (id: string, url: string) => {
-        console.error('Image failed to load:', id, url);
+        console.error('❌ Image failed to load:', id);
+        console.error('Failed URL:', url);
         setImages(images.map(img =>
             img.id === id ? { ...img, isLoading: false, hasError: true } : img
         ));
     };
 
     const retryImage = (id: string) => {
+        console.log('🔄 Retrying image:', id);
+
+        // Find the image to retry
+        const imageToRetry = images.find(img => img.id === id);
+        if (!imageToRetry) return;
+
+        // Generate a valid seed (must be <= 2147483647 for Pollinations.ai API)
+        const seed = Math.floor(Date.now() % 2147483647);
+
+        // Use the same helper function as initial generation
+        // This ensures consistency and uses the full prompt with brand context
+        const newUrl = generateLogoUrl(imageToRetry.fullPrompt, {
+            width: 512,
+            height: 512,
+            model: 'flux',
+            seed: seed,
+        });
+
+        console.log('Retrying with full prompt:', imageToRetry.fullPrompt.substring(0, 100) + '...');
+        console.log('New URL:', newUrl);
+
         setImages(images.map(img =>
-            img.id === id ? { ...img, isLoading: true, hasError: false } : img
+            img.id === id ? { ...img, url: newUrl, isLoading: true, hasError: false } : img
         ));
     };
 
